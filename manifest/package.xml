@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+
+  <!-- APEX CLASSES -->
+  <types>
+    <members>StreefdatumCalculator</members>
+    <members>PortalUserCasesController</members>
+    <members>CaseInfoController</members>
+    <members>CaseFeedController</members>
+    <members>AccountSelectorController</members>
+    <members>CaseEmailController</members>
+    <members>CaseFileUploader</members>
+    <members>CaseFileUploaderController</members>
+    <members>CaseLauncherController</members>
+    <members>CategoryMappingService</members>
+    <members>CategoryService</members>
+    <members>CaseOwnerHandler</members>
+    <members>CasePriorityHandler</members>
+    <name>ApexClass</name>
+  </types>
+
+  <!-- APEX TRIGGERS -->
+  <types>
+    <members>CaseTrigger</members>
+    <members>CaseTargetDateTrigger</members>
+    <name>ApexTrigger</name>
+  </types>
+
+  <!-- LWC COMPONENTEN -->
+  <types>
+    <members>caseViewerWarningV2</members>
+    <members>caseFeed</members>
+    <members>caseInfo</members>
+    <members>caseFilePasteUploader</members>
+    <members>caseEmailSender</members>
+    <members>caseLauncher</members>
+    <members>accountSelector</members>
+    <members>aiSubcategorySelector</members>
+    <members>filePasteUploader</members>
+    <members>contactSelector</members>
+    <members>logOut</members>
+    <members>portalUserCasesV2</members>
+    <name>LightningComponentBundle</name>
+  </types>
+
+  <!-- FLOWS -->
+  <types>
+    <members>CASEPORTAALV1_New</members>
+    <members>CaseChangeBehandelaarsgroep</members>
+    <members>CaseConfirmationEmail</members>
+    <name>Flow</name>
+  </types>
+
+  <!-- FLEXIPAGE (LIGHTNING PAGE) -->
+  <types>
+    <members>FOL_Case_Console_Record_Page</members>
+    <name>FlexiPage</name>
+  </types>
+
+  <!-- CUSTOM OBJECTS -->
+  <types>
+    <members>Case_View__c</members>
+    <members>Category__c</members>
+    <name>CustomObject</name>
+  </types>
+
+  <version>59.0</version>
+</Package>

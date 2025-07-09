@@ -1,0 +1,19 @@
+<template>
+  <lightning-card title="Plaats Chatter-post">
+    <div class="slds-p-around_small">
+      <lightning-input-rich-text
+        placeholder="Typ of plak hier je bericht…"
+        value={htmlContent}
+        onpaste={handlePaste}
+        onchange={handleInputChange}
+      ></lightning-input-rich-text>
+      <div class="slds-m-top_small slds-text-align_right">
+        <lightning-button
+          label="Share"
+          variant="brand"
+          onclick={handleShare}
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-card>
+</template>

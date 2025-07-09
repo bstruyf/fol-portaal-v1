@@ -1,0 +1,87 @@
+<template>
+    <lightning-card>
+        <div class="slds-p-around_small">
+
+            <!-- Spinner tonen zolang caseData én error beiden undefined zijn -->
+            <template if:false={caseData}>
+                <template if:false={error}>
+                    <lightning-spinner alternative-text="Laden van case..." size="medium"></lightning-spinner>
+                </template>
+            </template>
+
+            <!-- Case-informatie tonen zodra caseData beschikbaar is -->
+            <template if:true={caseData}>
+
+                <!-- HEADER met icoon + titel -->
+                <div class="slds-media slds-media_center slds-m-top_xx-small">
+                    <div class="slds-media__figure">
+                        <lightning-icon
+                            icon-name="standard:case"
+                            size="medium"
+                            alternative-text="Case"
+                            class="slds-icon-text-default"
+                        ></lightning-icon>
+                    </div>
+                    <div class="slds-media__body slds-p-left_small">
+                        <span class="slds-text-heading_medium slds-text-title_bold">
+                            <strong>Melding {caseData.CaseNumber}: {caseData.Subject}</strong>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="slds-border_bottom slds-m-bottom_medium slds-m-top_small"></div>
+
+                <!-- TWEE KOLOMMEN MET CASE-INFORMATIE -->
+                <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                    <div class="slds-col slds-size_1-of-2">
+                        <p><strong>Aangemaakt op:</strong> {createdDate}</p>
+                        <p><strong>Aanmelder:</strong> {aanmelder}</p>
+                    </div>
+                    <div class="slds-col slds-size_1-of-2">
+                        <p><strong>Status:</strong> {caseData.Status}</p>
+                        <p><strong>Behandelaar:</strong> {behandelaar}</p>
+                        <p><strong>Streefdatum:</strong> {streefdatum}</p>
+                    </div>
+                </div>
+
+                <div class="slds-border_top slds-m-vertical_medium"></div>
+
+                <!-- ONDERWERP + DETAILS -->
+                <p><strong>Onderwerp:</strong> {caseData.Subject}</p>
+                <br />
+                <p><strong>Details:</strong> {caseData.Description2__c}</p>
+
+                <!-- BIJLAGEN-SECTIE (SLDS-Lijst van Lightning Files) -->
+                <template if:true={files}>
+                    <div class="slds-m-top_medium">
+                        <p><strong>Bijlagen:</strong></p>
+                        <ul class="slds-list_dotted slds-m-left_medium">
+                            <template for:each={files} for:item="file">
+                                <li key={file.downloadUrl}>
+                                    <!-- file.title en file.downloadUrl komen uit onze FileWrapper -->
+                                    <a href={file.downloadUrl} target="_blank">
+                                        {file.title}
+                                    </a>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </template>
+
+                <!-- Foutmelding bij het ophalen van files -->
+                <template if:true={filesError}>
+                    <p class="slds-text-color_error slds-m-top_medium">
+                        Fout bij het laden van bestanden.
+                    </p>
+                </template>
+
+            </template>
+
+            <!-- Foutmelding bij het laden van de case zelf -->
+            <template if:true={error}>
+                <p class="slds-text-color_error">Er is een fout bij het laden van de case.</p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

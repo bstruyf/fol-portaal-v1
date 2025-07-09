@@ -1,0 +1,39 @@
+<template>
+  <lightning-card title="Selecteer Categorie">
+    <div class="slds-p-around_medium">
+      <p><strong>DEBUG:</strong> component geladen</p>
+      <p><strong>Beschikbare categorieën:</strong> {categoryOptions.length}</p>
+      <p><strong>Gekozen categorie:</strong> {selectedCategory}</p>
+      <p><strong>Gekozen subcategorie:</strong> {selectedSubCategory}</p>
+      <p><strong>Gekozen record ID:</strong> {selectedCategoryId}</p>
+
+      <lightning-combobox
+        name="category"
+        label="Category"
+        value={selectedCategory}
+        placeholder="Selecteer een categorie"
+        options={categoryOptions}
+        onchange={handleCategoryChange}>
+      </lightning-combobox>
+
+      <lightning-combobox
+        name="subcategory"
+        label="SubCategory"
+        value={selectedSubCategory}
+        placeholder="Selecteer een subcategorie"
+        options={filteredSubCategoryOptions}
+        onchange={handleSubCategoryChange}
+        disabled={filteredSubCategoryOptions.length === 0}>
+      </lightning-combobox>
+
+      <div class="slds-m-top_medium">
+        <template if:true={debugInfo}>
+          <p><strong>Debug log:</strong></p>
+          <template for:each={debugInfo} for:item="line">
+            <p key={line}>{line}</p>
+          </template>
+        </template>
+      </div>
+    </div>
+  </lightning-card>
+</template>

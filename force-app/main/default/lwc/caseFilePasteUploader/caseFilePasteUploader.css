@@ -1,0 +1,18 @@
+.drop-area {
+    border: 2px dashed #0070d2;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+}
+
+.drop-area:hover {
+    background-color: #f4f6f9;
+}
+
+.slds-text-color_success {
+    color: green;
+}
+
+.slds-text-color_error {
+    color: red;
+}

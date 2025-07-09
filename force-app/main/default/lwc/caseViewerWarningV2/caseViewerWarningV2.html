@@ -1,0 +1,16 @@
+<!-- caseViewerWarningV2.html -->
+<!-- 🧾 User Story: CVW-01 + CVW-02 | Toon waarschuwing bij meerdere gelijktijdige kijkers -->
+
+<template>
+    <template if:true={showWarning}>
+        <div class="slds-notify slds-notify_alert slds-theme_alert-texture slds-theme_warning" role="alert">
+            <span class="slds-assistive-text">Waarschuwing</span>
+            <span class="slds-icon_container slds-icon-utility-warning" title="Waarschuwing">
+                <lightning-icon icon-name="utility:warning" size="small"></lightning-icon>
+            </span>
+            <h2>
+                Deze case wordt momenteel bekeken door {viewerNamesJoined}.
+            </h2>
+        </div>
+    </template>
+</template>

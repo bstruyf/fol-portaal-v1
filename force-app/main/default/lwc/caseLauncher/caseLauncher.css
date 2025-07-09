@@ -1,0 +1,38 @@
+/* caseLauncher.css */
+.tiny-arrow {
+  font-size: 10px;        /* verlaag de lettergrootte */
+  line-height: 1;         /* zorg dat de regelhöhe minimaal is */
+  padding: 0;             /* padding weghalen */
+}
+.suggested-article {
+  position: relative;
+  display: inline-block; /* essentieel voor juiste positionering */
+}
+
+.popover {
+  position: absolute;
+  z-index: 100;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  width: 600px;
+  left: 100%; /* naast de titel */
+  top: 50%; /* ongeveer op hoogte van de titel */
+  transform: translateY(-66%); /* 2/3 omhoog tov bovenkant */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+}
+
+.popover-answer {
+  overflow-y: auto;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  max-height: 300px; /* bepaalt hoe hoog de rich text scrollbaar is */
+}
+
+.popover button {
+  align-self: flex-end;
+  flex-shrink: 0;
+}

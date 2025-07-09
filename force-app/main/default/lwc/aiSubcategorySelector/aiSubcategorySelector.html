@@ -1,0 +1,45 @@
+<template>
+  <div class="slds-p-around_medium">
+    <lightning-combobox
+      name="category"
+      label="Category"
+      value={selectedCategory}
+      placeholder="Selecteer een categorie"
+      options={categoryOptions}
+      onchange={handleCategoryChange}>
+    </lightning-combobox>
+
+    <lightning-combobox
+      name="subcategory"
+      label="Subcategory"
+      value={selectedSubCategory}
+      placeholder="Selecteer een subcategorie"
+      options={filteredSubCategoryOptions}
+      onchange={handleSubCategoryChange}>
+    </lightning-combobox>
+
+    <template if:true={hasSuggestions}>
+  <div class="slds-m-top_medium">
+    <template for:each={suggestions} for:item="sugg">
+      <lightning-button
+        key={sugg}
+        label={sugg}
+        data-value={sugg}
+        class="slds-m-around_xx-small"
+        onclick={handleSelect}>
+      </lightning-button>
+    </template>
+  </div>
+</template>
+
+    <lightning-button
+      label="Genereer suggesties"
+      onclick={handleGenerate}
+      class="slds-m-top_medium">
+    </lightning-button>
+
+    <template if:true={error}>
+      <p style="color:red;">{error}</p>
+    </template>
+  </div>
+</template>

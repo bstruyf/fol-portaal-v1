@@ -1,0 +1,24 @@
+.autocomplete-container {
+  position: relative;
+  width: 100%;
+}
+
+.input-box {
+  width: 100%;
+}
+
+/* Custom dropdown buiten SLDS conflicten houden */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #d8dde6;
+  border-radius: 0.25rem;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  max-height: 250px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}

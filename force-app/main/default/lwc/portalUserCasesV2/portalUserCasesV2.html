@@ -1,0 +1,31 @@
+<template>
+    <lightning-card title="Mijn Meldingen">
+        <div class="slds-p-around_medium" style="font-size: 14px;">
+            <p class="slds-text-body_regular slds-m-bottom_small">
+                Klik op het meldingnummer om de melding te openen.<br/>
+                Klik op het blauwe pijltje in het kolomhoofd om te sorteren.
+            </p>
+
+            <lightning-input
+                type="search"
+                label="Zoek in meldingen"
+                placeholder="Typ om te zoeken in alle velden"
+                value={searchKey}
+                onchange={handleSearch}
+                class="slds-m-bottom_small">
+            </lightning-input>
+
+            <div style="max-height: 400px; overflow-y: auto;">
+                <lightning-datatable
+                    key-field="Id"
+                    data={filteredCases}
+                    columns={columns}
+                    onsort={handleSort}
+                    sorted-by={sortedBy}
+                    sorted-direction={sortedDirection}
+                    hide-checkbox-column="true">
+                </lightning-datatable>
+            </div>
+        </div>
+    </lightning-card>
+</template>

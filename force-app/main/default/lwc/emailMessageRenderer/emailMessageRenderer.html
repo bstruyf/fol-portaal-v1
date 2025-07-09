@@ -1,0 +1,9 @@
+<template>
+  <div class="slds-box slds-theme_default slds-p-around_small">
+    <strong>{email.sender}</strong> → <strong>{email.to}</strong>
+    <div class="slds-text-body_small slds-m-bottom_x-small">
+      {email.createdFormatted}
+    </div>
+    <lightning-formatted-rich-text value={email.body}></lightning-formatted-rich-text>
+  </div>
+</template>

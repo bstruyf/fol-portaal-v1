@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="Upload Bestanden" icon-name="utility:upload">
+        <div class="slds-p-horizontal_medium">
+            <!-- Drag-&-Drop / Paste area -->
+            <div class="drop-area"
+                 ondrop={handleDrop}
+                 ondragover={handleDragOver}
+                 onpaste={handlePaste}>
+                <p class="slds-text-body_regular">
+                    Sleep bestanden hierheen of plak met <b>Ctrl+V</b>
+                </p>
+            </div>
+
+            <!-- Button onder het kader met extra margin-top -->
+            <div class="slds-m-top_large">
+                <lightning-button 
+                    label="Voeg bestand toe aan Case" 
+                    variant="brand"
+                    onclick={handleAddFileToCase}
+                    disabled={disableAddButton}>
+                </lightning-button>
+            </div>
+
+            <!-- Weergeven welke file klaarstaat -->
+            <template if:true={fileName}>
+                <div class="slds-m-top_medium">
+                    <strong>Bestand klaar voor upload:</strong> {fileName}
+                </div>
+            </template>
+
+            <!-- Succes-melding -->
+            <template if:true={isSuccess}>
+                <div class="slds-text-color_success slds-m-top_medium">
+                    Bestand succesvol toegevoegd!
+                </div>
+            </template>
+
+            <!-- Fout-melding -->
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-top_medium">
+                    Er is een fout opgetreden bij het toevoegen van het bestand.
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

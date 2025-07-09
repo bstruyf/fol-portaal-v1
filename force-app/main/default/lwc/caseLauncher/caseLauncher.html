@@ -1,0 +1,280 @@
+<template>
+  <div class="slds-grid slds-wrap slds-gutters">
+    <div class="slds-col slds-size_1-of-3">
+      <c-account-selector onaccountselected={handleAccountSelected}></c-account-selector>
+      <c-contact-selector
+  account-id={selectedAccountId}
+  oncontactselected={handleContactSelected}
+  onnewcontactupdate={handleNewContactUpdate}>
+</c-contact-selector>
+
+      <template if:true={apotheekEmail}>
+        <div class="slds-grid slds-gutters slds-m-top_small">
+          <div class="slds-col slds-size_2-of-3">
+            <label class="slds-form-element__label">E-mailadres Apotheekteam</label>
+            <lightning-formatted-text value={apotheekEmail}></lightning-formatted-text>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+            <lightning-input type="checkbox" label="Mail naar algemeen" checked={mailToGeneralEmail} onchange={handleToggleMailToGeneralEmail}></lightning-input>
+          </div>
+        </div>
+      </template>
+
+      <template if:true={selectedContactId}>
+        <div class="slds-grid slds-gutters slds-m-top_small">
+          <div class="slds-col slds-size_2-of-3">
+            <label class="slds-form-element__label">E-mailadres Aanmelder</label>
+            <template if:true={selectedContactEmail}>
+              <lightning-formatted-text value={selectedContactEmail}></lightning-formatted-text>
+            </template>
+            <template if:false={selectedContactEmail}>
+              <lightning-input
+                label="E-mailadres"
+                type="email"
+                value={contactEmailDraft}
+                onchange={handleDraftEmailChange}
+              ></lightning-input>
+              <lightning-button
+                label="Opslaan"
+                variant="brand"
+                onclick={handleSaveContactEmail}
+                class="slds-m-top_small"
+              ></lightning-button>
+</template>
+          </div>
+          <div class="slds-col slds-size_1-of-3">
+            <lightning-input type="checkbox" label="Mail naar aanmelder" checked={mailToAanmelder} onchange={handleToggleMailToAanmelder}></lightning-input>
+          </div>
+        </div>
+      </template>
+    </div>
+
+    <div class="slds-col slds-size_2-of-3">
+      <label class="slds-form-element__label">Aantekeningen</label>
+      <lightning-input-rich-text value={aantekeningen} onchange={handleAantekeningChange}></lightning-input-rich-text>
+<div class="slds-m-top_small">
+  <label class="slds-form-element__label">Case-actie</label>
+  <lightning-input-rich-text value={caseActie} onchange={handleCaseActieChange}></lightning-input-rich-text>
+</div>
+      <div style="width: 100%; display: flex; align-items: flex-end; gap: 12px; margin-top: 0.75rem;">
+        
+  <lightning-button
+    label="Nieuwe melding gekwalificeerd en opgelost"
+    variant="brand"
+    onclick={handleCreateCaseResolved}>
+  </lightning-button>
+
+  <lightning-button
+    label="Nieuwe melding gekwalificeerd en doorgestuurd"
+    variant="brand-outline"
+    onclick={handleCreateCaseForwarded}>
+  </lightning-button>
+</div>
+    </div>
+  </div>
+ <template if:true={showCaseForm}>
+  <div class="slds-box slds-theme_default">
+    <h2 class="slds-text-heading_small slds-m-bottom_medium">Vooraf ingevulde Case-gegevens</h2>
+
+    <div class="slds-grid slds-gutters slds-wrap">
+      <!-- Onderwerp -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-input
+          label="Onderwerp"
+          value={draftCase.Subject}
+          data-field="Subject"
+          onchange={handleDraftChange}>
+        </lightning-input>
+      </div>
+
+      <!-- Soort binnenkomst -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-combobox
+          label="Soort binnenkomst"
+          value={draftCase.Soort_Binnenkomst__c}
+          options={soortBinnenkomstOptions}
+          data-field="Soort_Binnenkomst__c"
+          onchange={handleDraftChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Prioriteit -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-combobox
+          label="Prioriteit"
+          value={draftCase.Priority}
+          options={priorityOptions}
+          data-field="Priority"
+          onchange={handleDraftChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Behandelaarsgroep -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-combobox
+          label="Behandelaarsgroep"
+          value={draftCase.Behandelaarsgroep__c}
+          options={behandelaarsgroepOptions}
+          data-field="Behandelaarsgroep__c"
+          onchange={handleDraftChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Soort melding -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-combobox
+          label="Soort melding"
+          value={draftCase.Soort_Melding__c}
+          options={soortMeldingOptions}
+          data-field="Soort_Melding__c"
+          onchange={handleDraftChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Status -->
+      <div class="slds-col slds-size_1-of-2">
+        <lightning-combobox
+          label="Status"
+          value={draftCase.Status}
+          options={statusOptions}
+          data-field="Status"
+          onchange={handleDraftChange}>
+        </lightning-combobox>
+      </div>
+
+      <!-- Categorie -->
+      <div class="slds-col slds-size_1-of-2">
+  <lightning-combobox
+    label="Categorie"
+    value={draftCase.Category__c}
+    options={categoryOptions}
+    onchange={handleCategoryChange}>
+    required
+  </lightning-combobox>
+</div>
+
+<!-- Subcategorie -->
+<div class="slds-col slds-size_1-of-2">
+  <lightning-combobox
+    label="Subcategorie"
+    value={draftCase.Subcategory__c}
+    options={subcategoryOptions}
+    onchange={handleSubCategoryChange}>
+    required
+</lightning-combobox>
+</div>
+    </div>
+    <div class="slds-m-top_medium">
+  <lightning-button
+    label="Case opslaan"
+    variant="brand"
+    onclick={handleCreateCase}>
+  </lightning-button>
+</div>
+  </div>
+</template>
+  <h3 class="slds-text-heading_small slds-m-top_medium slds-m-bottom_x-small">
+  Relevante KB-artikelen
+</h3>
+<ul>
+  <template for:each={suggestedArticles} for:item="article">
+    <li key={article.Id}>
+      <div class="suggested-article"
+     data-id={article.Id}
+     onmouseenter={handleMouseEnter}
+     onmouseleave={handleMouseLeave}>
+  <a href={article.url} target="_blank">{article.Title}</a>
+
+  <template if:true={article.showPopover}>
+    <section class="popover"
+             onmouseenter={keepPopover}
+             onmouseleave={handleMouseLeave}>
+      <p><strong>Environment:</strong> {article.Environment}</p>
+      <p><strong>Cause:</strong> {article.Cause}</p>
+      <p><strong>Problem:</strong> {article.Problem}</p>
+      <p><strong>Answer:</strong></p>
+        <div class="popover-answer">
+      <lightning-formatted-rich-text value={article.Answer}></lightning-formatted-rich-text>
+    </div>
+      <div class="popover-footer">
+      <button onclick={handleInsertAnswer}
+              data-answer={article.Answer}>
+        ➕ Voeg antwoord toe aan Case-actie
+      </button>
+    </div>
+    </section>
+  </template>
+</div>
+
+    </li>
+  </template>
+</ul>
+  <div class="slds-m-top_medium">
+    <h3 class="slds-text-heading_small slds-m-bottom_x-small">Zoek in meldingen</h3>
+    <lightning-input type="search" label="Zoekterm (min. 3 letters)" onchange={handleGlobalCaseSearch}></lightning-input>
+
+    <lightning-datatable key-field="Id" data={globalSearchResults} columns={globalSearchColumns} onrowaction={handleGlobalResultAction} hide-checkbox-column class="slds-m-top_small slds-table_bordered slds-table_col-bordered"></lightning-datatable>
+
+    <template if:true={emailFeed.length}>
+      <div class="slds-m-top_medium slds-box slds-theme_default">
+        <template if:true={selectedCaseDescription}>
+          <div class="slds-p-around_small slds-box slds-theme_shade slds-m-bottom_medium">
+            <h3 class="slds-text-title_bold">📝 Beschrijving</h3>
+            <div>{selectedCaseDescription}</div>
+          </div>
+        </template>
+
+        <h3 class="slds-text-heading_small slds-m-bottom_small">📧 E-mailberichten van geselecteerde melding</h3>
+        <template for:each={emailFeed} for:item="mail">
+          <div key={mail.Id} class="slds-box slds-m-bottom_small">
+            <div class="slds-text-body_small slds-m-bottom_x-small">
+              <strong>{mail.sender}</strong> → <strong>{mail.toAddresses}</strong><br/>
+              <em>{mail.subject}</em> <span class="slds-text-color_weak">({mail.createdFormatted})</span>
+            </div>
+            <div class="slds-box slds-theme_default">
+              <div class="email-html" lwc:dom="manual" key={mail.Id}></div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </template>
+  </div>
+
+  <template if:true={logMessages.length}>
+    <lightning-textarea label="Debug log" readonly class="slds-m-top_medium" value={joinedReversedLog} rows="6"></lightning-textarea>
+  </template>
+
+  <div class="slds-m-vertical_medium" style="border-top: 1px solid #ccc;"></div>
+
+  <div class="slds-p-horizontal_small">
+    <template if:true={hasRecentCases}>
+      <h3 class="slds-text-heading_small slds-m-bottom_small">Recente meldingen (laatste 3 maanden)</h3>
+      <lightning-datatable key-field="Id" data={recentCases} columns={columns} onrowaction={handleRowAction} hide-checkbox-column max-row-selection="1" onsingleclick={handleRowHover} class="slds-table_bordered slds-table_col-bordered"></lightning-datatable>
+    </template>
+  </div>
+
+  <template if:true={hoveredCase}>
+    <div class="slds-grid slds-wrap slds-m-top_medium slds-border_top">
+      <div class="slds-col slds-size_1-of-2 slds-p-around_medium slds-box">
+        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Oorspronkelijke vraag</h3>
+        <p>{hoveredCase.Description}</p>
+      </div>
+      <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+        <h3 class="slds-text-heading_small slds-m-bottom_x-small">Feed</h3>
+        <template if:true={hasFeed}>
+          <ul class="slds-list_dotted">
+            <template for:each={hoveredFeed} for:item="f">
+              <li key={f.Id}>
+                <strong>{f.creatorName}</strong> op {f.createdFormatted}:<br/>
+                {f.messageBody}
+              </li>
+            </template>
+          </ul>
+        </template>
+        <template if:false={hasFeed}>
+          <p>Geen feed beschikbaar.</p>
+        </template>
+      </div>
+    </div>
+  </template>
+</template>

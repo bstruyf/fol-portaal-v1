@@ -1,0 +1,22 @@
+<template>
+    <div class="slds-card">
+        <h2 class="slds-text-heading_medium">Wie is de aanmelder?</h2>
+        <lightning-radio-group 
+            name="aanmelderOptie"
+            label="Kies een optie"
+            options={options}
+            value={selectedOption}
+            onchange={handleChange}
+        ></lightning-radio-group>
+    </div>
+
+    <template if:true={showContactForm}>
+        <div class="slds-card slds-m-top_medium">
+            <h2 class="slds-text-heading_medium">Nieuwe Contactpersoon</h2>
+            <lightning-input label="Voornaam" name="firstName"></lightning-input>
+            <lightning-input label="Achternaam" name="lastName"></lightning-input>
+            <lightning-input label="E-mailadres" name="email" type="email"></lightning-input>
+            <lightning-input label="Telefoonnummer" name="phone" type="tel"></lightning-input>
+        </div>
+    </template>
+</template>

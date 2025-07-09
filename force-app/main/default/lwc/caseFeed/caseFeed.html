@@ -1,0 +1,105 @@
+<template>
+    <lightning-card title="Updates op dit incident" icon-name="action:update_status">
+        <div class="scroll-container">
+
+            <!-- Loop door alle feed-items -->
+            <template if:true={feedItems}>
+                <template for:each={feedItems} for:item="item">
+                    <div key={item.id}
+                         class="slds-m-vertical_medium slds-p-around_small feedItem"
+                         style="border-bottom:1px solid #ddd;">
+
+                        <!-- HEADER -->
+                        <div class="slds-grid slds-grid_vertical-align-center slds-m-bottom_x-small feedHeader">
+                            <lightning-icon
+                                class="squareIcon"
+                                icon-name={item.iconName}
+                                size="x-small"
+                                alternative-text={item.type}
+                                title={item.type}>
+                            </lightning-icon>
+
+                            <!-- CaseCreated: actorName heeft deze melding ingediend op datum -->
+                            <template if:true={item.isCaseCreated}>
+                                <div style="margin-left:.5rem; word-break:break-word;">
+                                    <strong>{item.actorName}</strong> heeft deze melding ingediend op {item.createdDateFormatted}
+                                </div>
+                            </template>
+
+                            <!-- Andere items: actorName op datum -->
+                            <template if:false={item.isCaseCreated}>
+                                <div style="margin-left:.5rem; word-break:break-word;">
+                                    <strong>{item.actorName}</strong>&nbsp;op&nbsp;{item.createdDateFormatted}
+                                </div>
+                            </template>
+                        </div>
+
+                        <!-- COMMENT (Chatter / portal post) -->
+                        <template if:true={item.isComment}>
+                            <template if:true={item.prefixLine}>
+                                <div class="slds-grid slds-grid_vertical-align-center">
+                                    <lightning-icon class="squareIcon"
+                                                    size="x-small"
+                                                    style="visibility:hidden;">
+                                    </lightning-icon>
+                                    <div class="slds-media__body"
+                                         style="margin-left:.5rem; word-break:break-word;">
+                                        <strong>{item.prefixLine}</strong>
+                                    </div>
+                                </div>
+                                <div style="border-bottom:1px solid #ddd; margin:0 .5rem;"></div>
+                            </template>
+                            <div class="slds-m-left_medium slds-p-horizontal_small messageBody">
+                                <lightning-formatted-rich-text value={item.commentBody}>
+                                </lightning-formatted-rich-text>
+                            </div>
+                        </template>
+
+                        <!-- OVERIGE ITEMS (Bijlage, E-mail, Taak, Afspraak) -->
+                        <template if:false={item.isComment}>
+
+                            <!-- Bijlage -->
+                            <template if:true={item.isAttachment}>
+                                <div class="slds-m-left_medium">
+                                    <div class="slds-grid slds-grid_vertical-align-center">
+                                        <lightning-icon
+                                            class="squareIcon"
+                                            icon-name={item.iconName}
+                                            size="x-small">
+                                        </lightning-icon>
+                                        <a href={item.downloadUrl}
+                                           target="_blank"
+                                           rel="noopener"
+                                           style="margin-left:.8rem;">
+                                            {item.linkLabel}
+                                        </a>
+                                    </div>
+                                </div>
+                            </template>
+
+                            <!-- E-mail, Taak, Afspraak -->
+                            <template if:false={item.isAttachment}>
+                                <div lwc:dom="manual"
+                                     data-id={item.id}
+                                     class="slds-m-left_medium messageBody"
+                                     style="white-space: normal;">
+                                    <!-- Deze div wordt gevuld met item.htmlContent door caseFeed.js -->
+                                </div>
+                            </template>
+
+                        </template>
+
+                    </div>
+                </template>
+            </template>
+
+            <!-- Foutmelding -->
+            <template if:true={error}>
+                <p class="slds-text-color_error slds-p-around_medium">
+                    Fout bij laden van de updates.
+                </p>
+            </template>
+
+        </div>
+    </lightning-card>
+</template>

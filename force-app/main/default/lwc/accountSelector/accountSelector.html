@@ -1,0 +1,45 @@
+<template>
+  <div class="autocomplete-container">
+    <lightning-input
+      label="Zoek account"
+      value={searchKey}
+      onchange={handleSearchKeyChange}
+      onfocus={handleFocus}
+      onblur={handleBlur}
+      onkeydown={handleKeyDown}
+      class="input-box"
+    ></lightning-input>
+
+    <template if:true={showDropdown}>
+      <ul
+        class="slds-listbox slds-listbox_vertical slds-dropdown_fluid slds-dropdown_length-5"
+        role="listbox"
+        id="account-listbox"
+      >
+        <template for:each={results} for:item="acc">
+          <li
+            key={acc.Id}
+            data-id={acc.Id}
+            role="option"
+            aria-selected={acc._selected}
+            class={acc.computedClass}
+            onclick={handleSelect}
+          >
+            <div class="slds-media">
+              <span class="slds-media__figure slds-listbox__option-icon">
+                <template if:true={acc._selected}>
+                  <lightning-icon icon-name="utility:check" alternative-text="Geselecteerd" size="x-small"></lightning-icon>
+                </template>
+              </span>
+              <span class="slds-media__body">
+                <span class="slds-listbox__option-text slds-listbox__option-text_entity">
+                  <strong>{acc.Name}</strong> ({acc.APB_SCN_Number__c}) - {acc.BillingCity}
+                </span>
+              </span>
+            </div>
+          </li>
+        </template>
+      </ul>
+    </template>
+  </div>
+</template>

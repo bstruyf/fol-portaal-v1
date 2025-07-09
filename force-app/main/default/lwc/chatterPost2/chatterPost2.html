@@ -1,0 +1,27 @@
+<template>
+    <lightning-card title="Nieuwe Chatter Post">
+        <div class="slds-var-m-around_medium">
+            <lightning-input-rich-text
+                value={htmlContent}
+                label="Bericht"
+                onchange={handleInputChange}>
+            </lightning-input-rich-text>
+
+            <lightning-button
+                label="Post"
+                variant="brand"
+                class="slds-m-top_medium"
+                onclick={handleShare}>
+            </lightning-button>
+        </div>
+
+        <template if:true={logMessages.length}>
+            <div class="slds-box slds-box_x-small slds-m-around_medium" style="max-height: 200px; overflow-y: auto;">
+                <p><strong>Debug Logs:</strong></p>
+                <template for:each={logMessages} for:item="log">
+                    <p key={log}>{log}</p>
+                </template>
+            </div>
+        </template>
+    </lightning-card>
+</template>

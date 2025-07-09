@@ -1,0 +1,100 @@
+<template>
+    <lightning-card title="Case Actie">
+        <div class="slds-p-around_medium">
+            <lightning-tabset ontabchange={handleTabChange}>
+                <!-- Tab 1: Nieuw bericht -->
+                <lightning-tab label="Nieuw bericht" value="mail">
+                    <template if:true={isMailTab}>
+    <lightning-record-edit-form object-api-name="EmailMessage" record-id={recordId}>
+        <lightning-input-rich-text
+    label="Bericht"
+    value={typedMessage}
+    onchange={handleBodyChange}
+    allow-quick-text>
+</lightning-input-rich-text>
+
+<lightning-combobox
+    label="Voeg Quick Text toe"
+    placeholder="Selecteer..."
+    options={quickTexts}
+    onchange={handleQuickTextInsert}>
+</lightning-combobox>
+    </lightning-record-edit-form>
+
+                        <lightning-input 
+                            type="checkbox" 
+                            label="Maak onzichtbaar voor aanmelder" 
+                            checked={internalOnly}
+                            onchange={handleInternalOnlyToggle}>
+                        </lightning-input>
+
+                        <div class="slds-m-top_medium">
+                            <lightning-button label="Share" variant="brand" onclick={handleShare}></lightning-button>
+                            <lightning-button label="Share and Close" variant="brand-outline" onclick={handleShareAndClose} class="slds-m-left_small"></lightning-button>
+                        </div>
+                    </template>
+                </lightning-tab>
+
+                <!-- Tab 2: Nieuwe afspraak -->
+                <lightning-tab label="Nieuwe afspraak" value="event">
+                    <lightning-input name="eventSubject" label="Onderwerp" value={eventSubject} onchange={handleInputChange}></lightning-input>
+
+                    <lightning-layout multiple-rows>
+                        <lightning-layout-item size="12">
+                            <lightning-layout horizontal-align="spread">
+                                <lightning-layout-item size="3">
+                                    <lightning-input type="date"
+                                                     name="eventStartDate"
+                                                     label="Startdatum"
+                                                     value={eventStartDate}
+                                                     onchange={handleInputChange}>
+                                    </lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item size="3">
+                                    <lightning-input type="time"
+                                                     name="eventStartTime"
+                                                     label="Starttijd"
+                                                     value={eventStartTime}
+                                                     onchange={handleInputChange}>
+                                    </lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item size="3">
+                                    <lightning-input type="date"
+                                                     name="eventEndDate"
+                                                     label="Einddatum"
+                                                     value={eventEndDate}
+                                                     onchange={handleInputChange}>
+                                    </lightning-input>
+                                </lightning-layout-item>
+
+                                <lightning-layout-item size="3">
+                                    <lightning-input type="time"
+                                                     name="eventEndTime"
+                                                     label="Eindtijd"
+                                                     value={eventEndTime}
+                                                     onchange={handleInputChange}>
+                                    </lightning-input>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </lightning-layout-item>
+                    </lightning-layout>
+
+                    <lightning-record-picker
+                        label="Deelnemer"
+                        placeholder="Zoek contact..."
+                        object-api-name="Contact"
+                        value={eventWhoId}
+                        display-info-name={eventWhoName}
+                        onchange={handleAttendeeChange}>
+                    </lightning-record-picker>
+
+                    <div class="slds-m-top_medium">
+                        <lightning-button label="Afspraak maken" variant="brand" onclick={handleCreateAppointment}></lightning-button>
+                    </div>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    </lightning-card>
+</template>

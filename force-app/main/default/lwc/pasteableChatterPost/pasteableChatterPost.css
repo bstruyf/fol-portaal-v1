@@ -1,0 +1,10 @@
+.tile-container {
+    border: 1px solid #d8dde6;
+    border-radius: 4px;
+    background-color: #ffffff;
+  }
+  
+  /* Min-height voor de rich-text area */
+  .composer .slds-rich-text-area__content {
+    min-height: 150px;
+  }

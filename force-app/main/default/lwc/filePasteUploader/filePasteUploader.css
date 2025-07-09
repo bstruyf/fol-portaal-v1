@@ -1,0 +1,29 @@
+.file-paste-uploader {
+    text-align: center;
+}
+
+.drop-area {
+    border: 2px dashed #0070d2;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f4f6f9;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.drop-area:hover {
+    background-color: #e3e6ea;
+}
+
+.file-list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.file-list li {
+    background: #d8e6ff;
+    padding: 5px;
+    margin: 5px;
+    border-radius: 4px;
+}
