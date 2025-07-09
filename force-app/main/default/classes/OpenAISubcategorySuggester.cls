@@ -1,6 +1,6 @@
 public with sharing class OpenAISubcategorySuggester {
 
-    private static final String OPENAI_API_KEY = 'Bearer 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'; // vervang met je eigen key
+    private static final String OPENAI_API_KEY = ''; // vervang met je eigen key
 
     public class AIResponseWrapper {
         @AuraEnabled public String raw;

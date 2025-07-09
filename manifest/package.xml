@@ -3,6 +3,7 @@
 
   <!-- APEX CLASSES -->
   <types>
+    <members>OpenAISubcategorySuggester</members>
     <members>StreefdatumCalculator</members>
     <members>PortalUserCasesController</members>
     <members>CaseInfoController</members>
