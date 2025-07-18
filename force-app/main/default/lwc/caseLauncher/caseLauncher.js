@@ -562,18 +562,20 @@ renderedCallback() {
     const msg = error?.body?.message || raw;
     this.log(`❌ ${context}: ${msg}`);
   }
-get showEmailInputField() {
-  this.logMessages.push(`✅ selectedContactId: ${this.selectedContactId}`);;
-  this.logMessages.push(`📧 selectedContactEmail: ${this.selectedContactEmail}`);
+  get showEmailInputField() {
+    this.logMessages.push(`✅ selectedContactId: ${this.selectedContactId}`);
+    this.logMessages.push(`📧 selectedContactEmail: ${this.selectedContactEmail}`);
 
- if (this.isLoadingEmail) return false;
-  return (
-    this.selectedContactId === 'Nieuwe contactpersoon toevoegen' ||
-    (this.selectedContactId && !this.selectedContactEmail)
-  );
+    if (this.isLoadingEmail) {
+      return false;
+    }
 
-  return isNewContact || isExistingWithoutEmail;
-}
+    const isNewContact = this.selectedContactId === 'nieuw';
+    const isExistingWithoutEmail =
+      this.selectedContactId && !this.selectedContactEmail;
+
+    return isNewContact || isExistingWithoutEmail;
+  }
   get joinedReversedLog() {
     return this.logMessages.slice().reverse().join('\n');
   }
